@@ -1,28 +1,35 @@
-from util import instalar_matplotlib
-from individuo import Individuo
-from populacao import Populacao
-import os, argparse
+import os
+
+from src.crossover.imp_crossovers import *
+from src.individuo import Individuo
+from src.mutacao.mutacao_uniforme import MutacaoUniforme
+from src.populacao import Populacao
+from src.util import instalar_matplotlib
 
 instalar_matplotlib()
 
 from matplotlib import pyplot as pl
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-i", "--individuo", help="Número de indivíduos em uma população",
-                    type=int, required=True)
-parser.add_argument("-m", "--mutacao", help="Taxa de mutação (inteiro entre 1 e 100)",
-                    type=int, required=True)
-parser.add_argument("-c", "--crossover", help="Taxa de crossover (inteiro entre 1 e 100)",
-                    type=int, required=True)
-argumentos = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("-i", "--individuo", help="Número de indivíduos em uma população",
+#                     type=int, required=True)
+# parser.add_argument("-m", "--mutacao", help="Taxa de mutação (inteiro entre 1 e 100)",
+#                     type=int, required=True)
+# parser.add_argument("-c", "--crossover", help="Taxa de crossover (inteiro entre 1 e 100)",
+#                     type=int, required=True)
+# argumentos = parser.parse_args()
 
-n_indiv = argumentos.individuo
-taxa_mutacao = argumentos.mutacao
-taxa_crossover = argumentos.crossover
-n_bits = 10
+n_indiv = 4
+taxa_mut = 1
+taxa_cross = 60
+func_mut = MutacaoUniforme
 
+indiv1 = Individuo(2)
+indiv2 = Individuo(4)
+func_cross = CrossoverBlend
 
 def main():
+
 	padrao_print = "Arquivo com melhor x para {} gerações = {}i_{}g_{}exec.csv"
 	diretorio = "CSVs"  # Diretório em que serão salvo os arquivos
 	bests = []  # Estrutura para armazenar os melhores fitness de cada execução para cada geração
@@ -33,7 +40,6 @@ def main():
 
 	num_exec = 10
 	generations = [5, 10]
-
 	best_x = {generation: None for generation in generations}
 
 	# Para cada execução
@@ -48,14 +54,14 @@ def main():
 			arq = open(f"{diretorio}/{n_indiv}i_{max_generations}g_{t}exec.csv", "wt")
 
 			# Gera população
-			populacao = Populacao(taxa_mutacao, taxa_crossover, n_indiv, n_bits)
+			populacao = Populacao(taxa_mut, taxa_cross, n_indiv, func_cross, func_mut)
 
 			for i in range(max_generations):
 				populacao.select()
 				populacao.make_crossover()
 				populacao.apply_mutation()
 
-				best = Individuo(n_bits, populacao.elite.bits)
+				best = Individuo(populacao.elite.cromossomo)
 
 				if not best_x[max_generations] or best_x[max_generations][0].fitness > best.fitness:
 					best_x[max_generations] = (best, t)
@@ -94,7 +100,7 @@ def main():
 		for i in range(len(media)):
 			pl.text(val_eixo_x[i], media[i], f"{media[i]:.5}", color="red", fontsize=10)
 
-		pl.text(1, media[-1], f"{best_x[generation][0].x_normalized}", color="blue", fontsize=10)
+		pl.text(1, media[-1], f"{best_x[generation][0].cromossomo}", color="blue", fontsize=10)
 
 		print(padrao_print.format(generation, n_indiv, generation, best_x[generation][1]))
 
