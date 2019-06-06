@@ -2,6 +2,8 @@ import abc
 
 from src.individuo import Individuo
 
+# MÉTODOS NÃO IMPLEMENTADOS:
+# - Crossover Simples
 
 class ABSCrossover(object):
 
@@ -28,6 +30,7 @@ class ABSCrossoverBlend(ABSCrossover):
 	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
 		raise NotImplementedError()
 
+
 class ABSCrossoverLinear(ABSCrossover):
 	"""Resulta em no filho mais apto entre três filhos gerados"""
 
@@ -36,3 +39,22 @@ class ABSCrossoverLinear(ABSCrossover):
 	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
 		raise NotImplementedError()
 
+
+# Métodos crossover descritos por Michalewicz
+
+class ABSCrossoverAritmetico(ABSCrossover):
+	"""Crossover semelhante ao BLX, porém não extrapolar os valores dos pais"""
+
+	@abc.abstractmethod
+	@staticmethod
+	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
+		raise NotImplementedError()
+
+
+class ABSCrossoverHeuristico(ABSCrossover):
+	"""Crossover que pode extrapolar os cromossomos dos pais dependendo da aptidão"""
+
+	@abc.abstractmethod
+	@staticmethod
+	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
+		raise NotImplementedError()
