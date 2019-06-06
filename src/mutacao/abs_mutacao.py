@@ -8,6 +8,7 @@ from src.individuo import Individuo
 
 class ABSMutacao(object):
 
+    @staticmethod
     @abc.abstractmethod
     def aplicar_mutacao(self, individuo: Individuo) -> Individuo:
         raise NotImplementedError()
@@ -16,6 +17,7 @@ class ABSMutacao(object):
 class ABSMutacaoUniforme(ABSMutacao):
     """Sorteia um valor dentro do intervalo aceito, caso extrapole, pega o valor padrão"""
 
+    @staticmethod
     @abc.abstractmethod
     def aplicar_mutacao(self, individuo: Individuo):
         raise NotImplementedError()
@@ -24,6 +26,7 @@ class ABSMutacaoUniforme(ABSMutacao):
 class ABSMutacaoLimite(ABSMutacao):
     """Sorteia um dos extremos do domínio para ser o valor do gene"""
 
+    @staticmethod
     @abc.abstractmethod
     def aplicar_mutacao(self, individuo: Individuo):
         raise NotImplementedError()
@@ -32,6 +35,7 @@ class ABSMutacaoLimite(ABSMutacao):
 class ABSMutacaoNaoUniforme(ABSMutacao):
     """Substitui o gene por um número de uma distribuição não uniforme"""
 
+    @staticmethod
     @abc.abstractmethod
     def aplicar_mutacao(self, individuo: Individuo):
         raise NotImplementedError()
@@ -40,6 +44,7 @@ class ABSMutacaoNaoUniforme(ABSMutacao):
 class ABSMutacaoCreep(ABSMutacao):
     """Substitui o gene por um número aleatório de uma distribuição gaussiana"""
 
+    @staticmethod
     @abc.abstractmethod
     def aplicar_mutacao(self, individuo: Individuo):
         raise NotImplementedError()

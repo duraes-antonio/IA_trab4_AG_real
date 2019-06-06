@@ -1,6 +1,6 @@
 from random import uniform
 
-from src.crossover.abs_crossover import *
+from src.crossover.abs_crossover import ABSCrossoverBlend, ABSCrossoverLinear, ABSCrossoverMedia
 from src.individuo import Individuo
 
 
@@ -29,7 +29,14 @@ class CrossoverBlend(ABSCrossoverBlend):
 
 class CrossoverLinear(ABSCrossoverLinear):
 
+	@staticmethod
 	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
 		"""Resulta em no filho mais apto entre três filhos gerados"""
-
-		#TODO concluir implementação
+		filhos = [
+			Individuo(0.5 * pai1.cromossomo + 0.5 * pai2.cromossomo),
+			Individuo(1.5 * pai1.cromossomo - 0.5 * pai2.cromossomo),
+			Individuo(-0.5 * pai1.cromossomo + 1.5 * pai2.cromossomo)
+		]
+		filho = min(filhos, key=lambda individuo: individuo.fitness)
+		filhos = None
+		return filho

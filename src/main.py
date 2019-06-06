@@ -1,14 +1,14 @@
 import os
 
-from src.crossover.imp_crossovers import *
+from src.crossover.imp_crossovers import CrossoverLinear
 from src.individuo import Individuo
 from src.mutacao.mutacao_uniforme import MutacaoUniforme
 from src.populacao import Populacao
 from src.util import instalar_matplotlib
 
-instalar_matplotlib()
+# instalar_matplotlib()
 
-from matplotlib import pyplot as pl
+# from matplotlib import pyplot as pl
 
 # parser = argparse.ArgumentParser()
 # parser.add_argument("-i", "--individuo", help="Número de indivíduos em uma população",
@@ -22,11 +22,8 @@ from matplotlib import pyplot as pl
 n_indiv = 4
 taxa_mut = 1
 taxa_cross = 60
-func_mut = MutacaoUniforme
-
-indiv1 = Individuo(2)
-indiv2 = Individuo(4)
-func_cross = CrossoverBlend
+func_mut = MutacaoUniforme()
+func_cross = CrossoverLinear()
 
 def main():
 
@@ -88,23 +85,23 @@ def main():
 		for i in range(generation):
 			media.append(fitness_sum[generation][i] / num_exec)
 
-		val_eixo_x = [i for i in range(1, generation + 1)]
-
-		pl.plot(val_eixo_x, media, marker='o')
-
-		# Nomeie os eixos X e Y
-		pl.xlabel("Número da geração")
-		pl.ylabel("Fitness i-ésimo individuo")
-
-		# Marque os valores de fitness, forma destacada (em vermelho) no gráfico
-		for i in range(len(media)):
-			pl.text(val_eixo_x[i], media[i], f"{media[i]:.5}", color="red", fontsize=10)
-
-		pl.text(1, media[-1], f"{best_x[generation][0].cromossomo}", color="blue", fontsize=10)
-
-		print(padrao_print.format(generation, n_indiv, generation, best_x[generation][1]))
-
-		pl.show()
+		# val_eixo_x = [i for i in range(1, generation + 1)]
+		#
+		# pl.plot(val_eixo_x, media, marker='o')
+		#
+		# # Nomeie os eixos X e Y
+		# pl.xlabel("Número da geração")
+		# pl.ylabel("Fitness i-ésimo individuo")
+		#
+		# # Marque os valores de fitness, forma destacada (em vermelho) no gráfico
+		# for i in range(len(media)):
+		# 	pl.text(val_eixo_x[i], media[i], f"{media[i]:.5}", color="red", fontsize=10)
+		#
+		# pl.text(1, media[-1], f"{best_x[generation][0].cromossomo}", color="blue", fontsize=10)
+		#
+		# print(padrao_print.format(generation, n_indiv, generation, best_x[generation][1]))
+		#
+		# pl.show()
 
 	return 0
 

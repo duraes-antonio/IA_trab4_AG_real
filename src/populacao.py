@@ -101,7 +101,7 @@ class Populacao(object):
 
 			# Se a taxa estiver no intervalo aceitável
 			if tax <= self.__taxa_cross:
-				children.append(self.__func_cross.aplicar_crossover(ind1, ind2))
+				children.append(self.__func_cross.aplicar(ind1, ind2))
 
 			else:
 				children.append(ind1)
