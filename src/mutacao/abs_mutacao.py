@@ -4,7 +4,7 @@ from src.individuo import Individuo
 
 # MÉTODOS NÃO IMPLEMENTADOS:
 # - Mutação não-uniforme múltipla
-# - Mutação Creep
+# - Mutação creep
 
 class ABSMutacao(object):
 
@@ -19,7 +19,7 @@ class ABSMutacaoUniforme(ABSMutacao):
 
     @staticmethod
     @abc.abstractmethod
-    def aplicar_mutacao(self, individuo: Individuo):
+    def aplicar_mutacao(self, individuo: Individuo) -> Individuo:
         raise NotImplementedError()
 
 
@@ -28,7 +28,7 @@ class ABSMutacaoLimite(ABSMutacao):
 
     @staticmethod
     @abc.abstractmethod
-    def aplicar_mutacao(self, individuo: Individuo):
+    def aplicar_mutacao(self, individuo: Individuo) -> Individuo:
         raise NotImplementedError()
 
 
@@ -37,14 +37,14 @@ class ABSMutacaoNaoUniforme(ABSMutacao):
 
     @staticmethod
     @abc.abstractmethod
-    def aplicar_mutacao(self, individuo: Individuo):
+    def aplicar_mutacao(self, individuo: Individuo) -> Individuo:
         raise NotImplementedError()
 
 
-class ABSMutacaoCreep(ABSMutacao):
+class ABSMutacaoGaussiana(ABSMutacao):
     """Substitui o gene por um número aleatório de uma distribuição gaussiana"""
 
     @staticmethod
     @abc.abstractmethod
-    def aplicar_mutacao(self, individuo: Individuo):
+    def aplicar_mutacao(self, individuo: Individuo) -> Individuo:
         raise NotImplementedError()

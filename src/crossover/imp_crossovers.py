@@ -1,6 +1,6 @@
 from random import uniform
 
-from src.crossover.abs_crossover import ABSCrossoverBlend, ABSCrossoverLinear, ABSCrossoverMedia
+from src.crossover.abs_crossover import *
 from src.individuo import Individuo
 
 
@@ -40,3 +40,34 @@ class CrossoverLinear(ABSCrossoverLinear):
 		filho = min(filhos, key=lambda individuo: individuo.fitness)
 		filhos = None
 		return filho
+
+
+class CrossoverAritmetico(ABSCrossoverAritmetico):
+
+	@staticmethod
+	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
+		"""Resulta em no filho mais apto entre dois, e não extrapolar o intervalo dos pais"""
+
+		beta = uniform(0, 1)
+		c1 = beta * pai1.cromossomo + (1 - beta) * pai2.cromossomo
+		c2 = (1 - beta) * pai1.cromossomo + beta * pai2.cromossomo
+		melhor_filho = min(c1, c2, key=lambda individuo: individuo.fitness)
+		return melhor_filho
+
+
+class CrossoverHeuristico(ABSCrossoverHeuristico):
+
+	@staticmethod
+	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
+		"""Gera um filho considerando o pai mais apto. Descarta o filho se ele for infactível"""
+
+		r = uniform(0, 1)
+		mais_apto = min(pai1, pai2, key=lambda individuo: individuo.fitness)
+		menos_apto = max(pai1, pai2, key=lambda individuo: individuo.fitness)
+
+		cromo = mais_apto.cromossomo + r * (mais_apto.cromossomo - menos_apto.cromossomo)
+
+		while(cromo > mais_apto.dMax or cromo < mais_apto.dMin):
+			cromo = mais_apto.cromossomo + r * (mais_apto.cromossomo - menos_apto.cromossomo)
+
+		return Individuo(cromo)

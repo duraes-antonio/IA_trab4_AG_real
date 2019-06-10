@@ -1,10 +1,10 @@
 import os
 
-from src.crossover.imp_crossovers import CrossoverLinear
-from src.individuo import Individuo
-from src.mutacao.mutacao_uniforme import MutacaoUniforme
-from src.populacao import Populacao
-from src.util import instalar_matplotlib
+from crossover.imp_crossovers import CrossoverLinear
+from individuo import Individuo
+from mutacao.mutacao_uniforme import MutacaoUniforme
+from populacao import Populacao
+from util import instalar_matplotlib
 
 # instalar_matplotlib()
 
