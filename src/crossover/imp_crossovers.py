@@ -4,7 +4,7 @@ from src.crossover.abs_crossover import *
 from src.individuo import Individuo
 
 
-class CrossoverMedia(ABSCrossoverMedia):
+class CrossoverMedia(ABSCrossover):
 
 	@staticmethod
 	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
@@ -13,7 +13,7 @@ class CrossoverMedia(ABSCrossoverMedia):
 		return Individuo((pai1.cromossomo + pai2.cromossomo) / 2)
 
 
-class CrossoverBlend(ABSCrossoverBlend):
+class CrossoverBlend(ABSCrossover):
 
 	__alpha = 0.5
 
@@ -27,7 +27,7 @@ class CrossoverBlend(ABSCrossoverBlend):
 		return Individuo(pai1.cromossomo + beta * (pai2.cromossomo - pai1.cromossomo))
 
 
-class CrossoverLinear(ABSCrossoverLinear):
+class CrossoverLinear(ABSCrossover):
 
 	@staticmethod
 	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
@@ -42,7 +42,7 @@ class CrossoverLinear(ABSCrossoverLinear):
 		return filho
 
 
-class CrossoverAritmetico(ABSCrossoverAritmetico):
+class CrossoverAritmetico(ABSCrossover):
 
 	@staticmethod
 	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:
@@ -55,7 +55,7 @@ class CrossoverAritmetico(ABSCrossoverAritmetico):
 		return melhor_filho
 
 
-class CrossoverHeuristico(ABSCrossoverHeuristico):
+class CrossoverHeuristico(ABSCrossover):
 
 	@staticmethod
 	def aplicar(pai1: Individuo, pai2: Individuo) -> Individuo:

@@ -4,22 +4,22 @@ from src.individuo import Individuo
 from src.mutacao.abs_mutacao import *
 
 
-class MutacaoUniforme(ABSMutacaoUniforme):
+class MutacaoUniforme(ABSMutacao):
 
 	@staticmethod
 	@abc.abstractmethod
-	def aplicar_mutacao(self, individuo: Individuo) -> Individuo:
+	def aplicar_mutacao(individuo: Individuo) -> Individuo:
 		"""Altera o cromossomo do indivíduo com um valor entre o mínimo e máximo do domínio"""
 
 		individuo.cromossomo = uniform(individuo.dMin, individuo.dMax)
 		return individuo
 
 
-class MutacaoLimite(ABSMutacaoLimite):
+class MutacaoLimite(ABSMutacao):
 
 	@staticmethod
 	@abc.abstractmethod
-	def aplicar_mutacao(self, individuo: Individuo):
+	def aplicar_mutacao(individuo: Individuo):
 		"""Sorteia um dos extremos do domínio para ser o valor do gene"""
 
 		r = uniform(0, 1)
@@ -29,21 +29,21 @@ class MutacaoLimite(ABSMutacaoLimite):
 		return individuo
 
 
-class MutacaoNaoUniforme(ABSMutacaoNaoUniforme):
+class MutacaoNaoUniforme(ABSMutacao):
 
 	@staticmethod
 	@abc.abstractmethod
-	def aplicar_mutacao(self, individuo: Individuo):
+	def aplicar_mutacao(individuo: Individuo):
 		"""Substitui o gene por um número de uma distribuição não uniforme"""
 		#TODO finalizar implementação
 		raise NotImplementedError()
 
 
-class MutacaoGaussiana(ABSMutacaoGaussiana):
+class MutacaoGaussiana(ABSMutacao):
 
 	@staticmethod
 	@abc.abstractmethod
-	def aplicar_mutacao(self, individuo: Individuo):
+	def aplicar_mutacao(individuo: Individuo):
 		"""Substitui o gene por um número aleatório de uma distribuição gaussiana"""
 		# TODO finalizar implementação
 		raise NotImplementedError()
