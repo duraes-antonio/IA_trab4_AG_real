@@ -36,7 +36,7 @@ def main():
         os.makedirs(diretorio)
 
     num_exec = 10
-    generations = [10]
+    generations = [5, 10]
     best_x = {generation: None for generation in generations}
 
     # Para cada execução
