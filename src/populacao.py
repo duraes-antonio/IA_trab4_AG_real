@@ -102,6 +102,7 @@ class Populacao(object):
 			# Se a taxa estiver no intervalo aceitável
 			if tax <= self.__taxa_cross:
 				children.append(self.__func_cross.aplicar(ind1, ind2))
+				children.append(self.__func_cross.aplicar(ind1, ind2))
 
 			else:
 				children.append(ind1)
@@ -112,14 +113,12 @@ class Populacao(object):
 
 		# Se o número de indivíduos ultrapassou o máximo (extrapolará 0 ou 1),
 		# então remova o pior indivíduo
-		if(len(self.individuos) > self.n_ind):
+		if len(self.individuos) > self.n_ind:
 			self.individuos.remove(self.get_best_or_worst(best=False))
-
-
 
 		self.__apply_elite()
 
-	def apply_mutation(self):
+	def apply_mutation(self, g_atual: int, g_max: int):
 		"""
 		Aplica o processo de mutação no código genético de cada indivíduo se
 		as condições estiverem dentro da taxa mínima.
@@ -127,6 +126,10 @@ class Populacao(object):
 
 		# Para cada individuo
 		for ind in self.individuos:
-			self.__func_mut.aplicar_mutacao(ind)
+			# Sorteia a taxa entre 0% e 100%
+			tax = uniform(0, 100)
+
+			if tax <= self.__taxa_mut:
+				self.__func_mut.aplicar_mutacao(ind, g_atual, g_max)
 
 		self.__apply_elite()

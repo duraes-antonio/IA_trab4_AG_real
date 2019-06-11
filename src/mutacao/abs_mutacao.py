@@ -10,5 +10,5 @@ class ABSMutacao(object):
 
     @staticmethod
     @abc.abstractmethod
-    def aplicar_mutacao(individuo: Individuo) -> Individuo:
+    def aplicar_mutacao(individuo: Individuo, g_atual: int, g_max: int) -> Individuo:
         raise NotImplementedError()

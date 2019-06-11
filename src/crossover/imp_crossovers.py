@@ -51,8 +51,8 @@ class CrossoverAritmetico(ABSCrossover):
 		beta = uniform(0, 1)
 		c1 = beta * pai1.cromossomo + (1 - beta) * pai2.cromossomo
 		c2 = (1 - beta) * pai1.cromossomo + beta * pai2.cromossomo
-		melhor_filho = min(c1, c2, key=lambda individuo: individuo.fitness)
-		return melhor_filho
+		melhor_filho = min(c1, c2)
+		return Individuo(melhor_filho)
 
 
 class CrossoverHeuristico(ABSCrossover):
@@ -67,7 +67,8 @@ class CrossoverHeuristico(ABSCrossover):
 
 		cromo = mais_apto.cromossomo + r * (mais_apto.cromossomo - menos_apto.cromossomo)
 
-		while(cromo > mais_apto.dMax or cromo < mais_apto.dMin):
+		while cromo > mais_apto.dMax or cromo < mais_apto.dMin:
+			r = uniform(0, 1)
 			cromo = mais_apto.cromossomo + r * (mais_apto.cromossomo - menos_apto.cromossomo)
 
 		return Individuo(cromo)
