@@ -1,4 +1,4 @@
-import os
+import os, argparse
 
 from src.crossover.imp_crossovers import CrossoverLinear as Crossover
 from src.individuo import Individuo
@@ -10,18 +10,18 @@ instalar_matplotlib()
 
 from matplotlib import pyplot as pl
 
-# parser = argparse.ArgumentParser()
-# parser.add_argument("-i", "--individuo", help="Número de indivíduos em uma população",
-#                     type=int, required=True)
-# parser.add_argument("-m", "--mutacao", help="Taxa de mutação (inteiro entre 1 e 100)",
-#                     type=int, required=True)
-# parser.add_argument("-c", "--crossover", help="Taxa de crossover (inteiro entre 1 e 100)",
-#                     type=int, required=True)
-# argumentos = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument("-i", "--individuo", help="Número de indivíduos em uma população",
+                    type=int, required=True)
+parser.add_argument("-m", "--mutacao", help="Taxa de mutação (inteiro entre 1 e 100)",
+                    type=int, required=True)
+parser.add_argument("-c", "--crossover", help="Taxa de crossover (inteiro entre 1 e 100)",
+                    type=int, required=True)
+argumentos = parser.parse_args()
 
-n_indiv = 4
-taxa_mut = 10
-taxa_cross = 60
+n_indiv = argumentos.individuo
+taxa_mut = argumentos.mutacao
+taxa_cross = argumentos.crossover
 func_mut = Mutacao()
 func_cross = Crossover()
 
@@ -36,7 +36,7 @@ def main():
         os.makedirs(diretorio)
 
     num_exec = 10
-    generations = [10]
+    generations = [5, 10]
     best_x = {generation: None for generation in generations}
 
     # Para cada execução
